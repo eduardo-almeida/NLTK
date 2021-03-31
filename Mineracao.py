@@ -36,4 +36,23 @@ def removeStopWord(texto):
         frases.append((semStop, emocao))
     return  frases
 
-print(removeStopWord(base))
+#print(removeStopWord(base))
+
+def aplicaStemmer(texto):
+    stemmer = nltk.stem.RSLPStemmer()
+    frasesStemmer = []
+    for(palavras, emocao) in texto:
+        comStemmer = [str(stemmer.stem(p)) for p in palavras.split() if p not in stopwordsNltk]
+        frasesStemmer.append((comStemmer, emocao))
+    return frasesStemmer
+
+frasesComStemmer = aplicaStemmer(base)
+
+def buscaPalavras(frases):
+    todasPalavras = []
+
+    for(palavras, emocao) in frases:
+        todasPalavras.extend(palavras)
+    return todasPalavras
+
+print(buscaPalavras(frasesComStemmer))
